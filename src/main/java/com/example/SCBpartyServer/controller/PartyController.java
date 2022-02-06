@@ -12,6 +12,7 @@ import com.example.SCBpartyServer.repository.PartyRepository;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -28,6 +29,7 @@ public class PartyController {
     @Autowired
 	private PartyRepository partyRepository;
 
+    @CrossOrigin
     @RequestMapping(value = "/delete/party", method=RequestMethod.DELETE)
     public String deleteAllParty(){
 		try {
@@ -39,6 +41,7 @@ public class PartyController {
 		}
 	}
 
+    @CrossOrigin
     @RequestMapping("/partylist")
     public ResponseEntity<?> getPartyList() { 
         try {
@@ -53,6 +56,7 @@ public class PartyController {
         }
     }
 
+    @CrossOrigin
 	@RequestMapping(value = "/create", method=RequestMethod.POST)
     public ResponseEntity<?> createParty(@RequestParam("partyName") String name, @RequestParam("amount") Integer amount){
         Map<String,String> result = new HashMap<>();
@@ -69,6 +73,7 @@ public class PartyController {
         }
 	}
 
+    @CrossOrigin
 	@RequestMapping(value = "/join", method=RequestMethod.POST)
     public ResponseEntity<?> joinParty(@RequestParam("partyKey") String partyKey, @RequestParam("userKey") String userKey){
         Map<String,String> result = new HashMap<>();

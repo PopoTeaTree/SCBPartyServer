@@ -11,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.AuthorityUtils;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -35,6 +36,7 @@ public class UserController {
         return userRepository.findAll();
     }
 
+	@CrossOrigin
 	@RequestMapping(value = "/delete/users", method=RequestMethod.DELETE)
     public String deleteAllUser(){
 		try {
@@ -46,6 +48,7 @@ public class UserController {
 		}
 	}
 
+	@CrossOrigin
     @RequestMapping(value = "/register", method=RequestMethod.POST)
     public ResponseEntity<?> addUser(@RequestParam("username") String username, @RequestParam("password") String pwd){
 		Map<String,String> result = new HashMap<>();
@@ -66,6 +69,7 @@ public class UserController {
 		}
 	}
 
+	@CrossOrigin
     @RequestMapping(value = "/login", method=RequestMethod.POST)
 	public ResponseEntity<?> login(@RequestParam("username") String username, @RequestParam("password") String pwd){
 		Map<String,String> result = new HashMap<>();
