@@ -56,11 +56,12 @@ public class PartyController {
         }
     }
 
-    @RequestMapping("/partylist")
+    @RequestMapping(value ="/partylist", method=RequestMethod.GET)
     public ResponseEntity<?> getPartyList() { 
         try {
             Map<String,List<?>> result = new HashMap<>();
             result.put("party_list",partyRepository.findPartyList());
+            // result.put("party_list",partyRepository.findPartyList());
             return ResponseEntity.accepted().header("result", "SUCCESS").body(result);
         } catch (Exception e) {
             Map<String,String> result = new HashMap<>();

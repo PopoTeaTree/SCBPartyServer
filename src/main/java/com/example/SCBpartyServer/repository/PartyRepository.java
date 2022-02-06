@@ -17,7 +17,7 @@ public interface PartyRepository extends JpaRepository<Party, Integer> {
     @Query("SELECT u FROM Party u WHERE u.member =:member AND u.key =:key")
     List<Party> findUNAbleJoin(String member, String key);
 
-    @Query("SELECT COUNT(key), partyName, amount FROM Party GROUP BY key, name, amount")
+    @Query("SELECT key AS key, COUNT(key) AS Member, partyName AS partyName, amount AS amount FROM Party GROUP BY key, partyName, amount")
     List<?> findPartyList();
 
     @Modifying(clearAutomatically = true)

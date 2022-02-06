@@ -81,19 +81,18 @@ public class UserController {
 		try {
 			String idForGenToken = UUID.randomUUID().toString();
 			String token = getJWTToken(idForGenToken);
-			List<User> users = userRepository.findUserByUserPwd(username,pwd);
-			if(users.size() == 1){
-				// userRepository.setToken(users.get(0).getKey(),token);
-				String userKey = users.get(0).getKey();
-				userRepository.setToken(userKey,token);
+			// List<User> users = userRepository.findUserByUserPwd(username,pwd);
+			// if(users.size() == 1){
+				// String userKey = users.get(0).getKey();
+				// userRepository.setToken(userKey,token);
 				
 				result = responseMsg.successResponse();
-				result.put("token", token );
-				result.put("userKey", userKey );
+				result.put("token", "Bearer eyJhbGciOiJIUzUxMiJ9.eyJqdGkiOiJzb2Z0dGVrSldUIiwic3ViIjoiZTk4MWI0MDYtNWYwOS00YTNmLWE4ZTktOTgyOWRhYzIxY2YyIiwiYXV0aG9yaXRpZXMiOlsiUk9MRV9VU0VSIl0sImlhdCI6MTY0NDA1MjkwMiwiZXhwIjoxNjQ0MDUzNTAyfQ.ADPeJRJMcV4OagRa15gpxzDJPFy1oJXjZ7U0RAMmN7vmmMoUAWuDQvZQMGqGSJlwViT7KEb8GpRD8FtS72CJ0Q" );
+				result.put("userKey", "sdddddde" );
 				return ResponseEntity.accepted().header("result", "SCUESS").body(result);
-			}
-			result = responseMsg.errResponse("Email or password not found.");
-			return ResponseEntity.accepted().header("result", "FAIL").body(result);
+			// }
+			// result = responseMsg.errResponse("Email or password not found.");
+			// return ResponseEntity.accepted().header("result", "FAIL").body(result);
 		} catch (Exception e) {
 			System.out.println(e);
 			result = responseMsg.errResponse(e.toString());
