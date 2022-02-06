@@ -18,7 +18,7 @@ generate Authentication token, and response.
 - Create : user can create party with name and amount of member
 - PartyList : get all party with detail 
 - Join : user can join not full member
-### Running
+## Running
 - Let check you already have mavan and java
 `mvn -v` and `java -v`
 - Run mavaen package
