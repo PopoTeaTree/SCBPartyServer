@@ -1,4 +1,4 @@
 -------------------------------------------------------------------------------
 Test set: com.example.SCBpartyServer.ScBpartyServerApplicationTests
 -------------------------------------------------------------------------------
-Tests run: 1, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 8.555 s - in com.example.SCBpartyServer.ScBpartyServerApplicationTests
+Tests run: 1, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 8.928 s - in com.example.SCBpartyServer.ScBpartyServerApplicationTests

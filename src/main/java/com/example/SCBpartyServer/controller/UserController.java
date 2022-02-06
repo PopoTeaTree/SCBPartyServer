@@ -1,15 +1,7 @@
 package com.example.SCBpartyServer.controller;
 
-import java.io.Console;
-import java.lang.reflect.Array;
-import java.net.URI;
-import java.net.http.HttpHeaders;
 import java.sql.Date;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collection;
 import java.util.HashMap;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.UUID;
@@ -19,7 +11,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.AuthorityUtils;
-import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -81,18 +72,18 @@ public class UserController {
 		try {
 			String idForGenToken = UUID.randomUUID().toString();
 			String token = getJWTToken(idForGenToken);
-			// List<User> users = userRepository.findUserByUserPwd(username,pwd);
-			// if(users.size() == 1){
-				// String userKey = users.get(0).getKey();
-				// userRepository.setToken(userKey,token);
+			List<User> users = userRepository.findUserByUserPwd(username,pwd);
+			if(users.size() == 1){
+				String userKey = users.get(0).getKey();
+				userRepository.setToken(userKey,token);
 				
 				result = responseMsg.successResponse();
 				result.put("token", "Bearer eyJhbGciOiJIUzUxMiJ9.eyJqdGkiOiJzb2Z0dGVrSldUIiwic3ViIjoiZTk4MWI0MDYtNWYwOS00YTNmLWE4ZTktOTgyOWRhYzIxY2YyIiwiYXV0aG9yaXRpZXMiOlsiUk9MRV9VU0VSIl0sImlhdCI6MTY0NDA1MjkwMiwiZXhwIjoxNjQ0MDUzNTAyfQ.ADPeJRJMcV4OagRa15gpxzDJPFy1oJXjZ7U0RAMmN7vmmMoUAWuDQvZQMGqGSJlwViT7KEb8GpRD8FtS72CJ0Q" );
 				result.put("userKey", "sdddddde" );
 				return ResponseEntity.accepted().header("result", "SCUESS").body(result);
-			// }
-			// result = responseMsg.errResponse("Email or password not found.");
-			// return ResponseEntity.accepted().header("result", "FAIL").body(result);
+			}
+			result = responseMsg.errResponse("Email or password not found.");
+			return ResponseEntity.accepted().header("result", "FAIL").body(result);
 		} catch (Exception e) {
 			System.out.println(e);
 			result = responseMsg.errResponse(e.toString());

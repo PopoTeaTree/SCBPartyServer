@@ -29,10 +29,11 @@ public class ScBpartyServerApplication {
 				.addFilterAfter(new AuthorizationFilter(), UsernamePasswordAuthenticationFilter.class)
 				.authorizeRequests()
 				.antMatchers(HttpMethod.POST, "/login").permitAll()
-				.antMatchers(HttpMethod.POST, "/login/**").permitAll()
 				.antMatchers(HttpMethod.POST, "/login/*").permitAll()
+				.antMatchers(HttpMethod.POST, "/login/**").permitAll()
 				.antMatchers(HttpMethod.POST, "/register").permitAll()
-				.antMatchers(HttpMethod.GET, "/partylist").permitAll()
+				.antMatchers(HttpMethod.POST, "/register/*").permitAll()
+				.antMatchers(HttpMethod.POST, "/register/**").permitAll()
 				.antMatchers(HttpMethod.DELETE, "/delete/users").permitAll()
 				.antMatchers(HttpMethod.DELETE, "/delete/party").permitAll()
 				.anyRequest().authenticated();
