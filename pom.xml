@@ -81,24 +81,10 @@
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>
 			</plugin>
-			<!-- <plugin>
+			<plugin>
 				<groupId>com.google.cloud.tools</groupId>
 					<artifactId>appengine-maven-plugin</artifactId>
 					<version>2.4.0</version>
-					<configuration>
-						<stage.enableJarSplitting>true</stage.enableJarSplitting>
-						<deploy.stopPreviousVersion>true</deploy.stopPreviousVersion>
-					</configuration>
-			</plugin> -->
-			<plugin>
-				<groupId>com.google.cloud.tools</groupId>
-				<artifactId>appengine-maven-plugin</artifactId>
-				<version>2.4.0</version>
-			</plugin>
-			<plugin>
-				<groupId>org.eclipse.jetty</groupId>
-				<artifactId>jetty-maven-plugin</artifactId>
-				<version>9.3.7.v20160115</version>
 			</plugin>
 		</plugins>
 	</build>
