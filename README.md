@@ -15,9 +15,9 @@ generate Authentication token, and response.
 - PartyList : get all party with detail 
 - Join : user can join not full member
 ### Running
-Let check you already have mavan and java
+- Let check you already have mavan and java
 `mvn -v` and `java -v`
-Run mavaen package
+- Run mavaen package
 `mvn clean package`
-Run server
+- Run server
 `mvn spring-boot:run`
