@@ -1,3 +1,13 @@
+/**
+ *  UserController.java
+ *
+ *  Manage API service of user
+ *
+ *  Created by
+ *  Thitiporn Sukpartcharoen 
+ *
+ *  6 Jan 2022
+ */
 package com.example.SCBpartyServer.controller;
 
 import java.sql.Date;
@@ -26,16 +36,26 @@ import com.example.SCBpartyServer.repository.UserRepository;
 @RestController
 public class UserController {
 
+	 /** response message */
 	private ResponseMsg responseMsg = new ResponseMsg();
 
+	 /** User repository */
     @Autowired
 	private UserRepository userRepository;
     
+	/**
+     * Getting all user
+     * @return User list 
+     */
     @RequestMapping("/users")
     public List<User> getAllCosmetics() { 
         return userRepository.findAll();
     }
 
+	/**
+     * Delete all user  
+     * @return response  
+     */
 	@CrossOrigin
 	@RequestMapping(value = "/delete/users", method=RequestMethod.DELETE)
     public String deleteAllUser(){
@@ -48,6 +68,13 @@ public class UserController {
 		}
 	}
 
+	/**
+     * Register user by email and password. Check the username has 
+	 * already in the database and response.
+     * @param username 	email
+	 * @param password	
+     * @return result response 
+     */
 	@CrossOrigin
     @RequestMapping(value = "/register", method=RequestMethod.POST)
     public ResponseEntity<?> addUser(@RequestParam("username") String username, @RequestParam("password") String pwd){
@@ -55,10 +82,12 @@ public class UserController {
 		try {
 			String uniqueID = UUID.randomUUID().toString();
 			List<User> users = userRepository.findUserByKey(username);
+			// Check email has already in the database
 			if(users.size() != 0 ){
 				result = responseMsg.errResponse("This email has already used.");
 				return ResponseEntity.accepted().header("result", "FAIL").body(result);	
 			} 
+			// Save a user in database
 			userRepository.save(new User(username,pwd,uniqueID));
 			result = responseMsg.successResponse();
 			return ResponseEntity.accepted().header("result", "SUCCESS").body(result);
@@ -69,23 +98,35 @@ public class UserController {
 		}
 	}
 
+	/**
+     * Login and generate token 
+     * @param username 	email
+	 * @param password	
+     * @return result response with token 
+     */
 	@CrossOrigin
     @RequestMapping(value = "/login", method=RequestMethod.POST)
 	public ResponseEntity<?> login(@RequestParam("username") String username, @RequestParam("password") String pwd){
 		Map<String,String> result = new HashMap<>();
 		try {
+			// Generate id for generate token
 			String idForGenToken = UUID.randomUUID().toString();
+			// Generate token 
 			String token = getJWTToken(idForGenToken);
+			// Find the user is in database
 			List<User> users = userRepository.findUserByUserPwd(username,pwd);
 			if(users.size() == 1){
+
 				String userKey = users.get(0).getKey();
+				// set token authtication
 				userRepository.setToken(userKey,token);
-				
+				// set response message
 				result = responseMsg.successResponse();
-				result.put("token", "Bearer eyJhbGciOiJIUzUxMiJ9.eyJqdGkiOiJzb2Z0dGVrSldUIiwic3ViIjoiZTk4MWI0MDYtNWYwOS00YTNmLWE4ZTktOTgyOWRhYzIxY2YyIiwiYXV0aG9yaXRpZXMiOlsiUk9MRV9VU0VSIl0sImlhdCI6MTY0NDA1MjkwMiwiZXhwIjoxNjQ0MDUzNTAyfQ.ADPeJRJMcV4OagRa15gpxzDJPFy1oJXjZ7U0RAMmN7vmmMoUAWuDQvZQMGqGSJlwViT7KEb8GpRD8FtS72CJ0Q" );
-				result.put("userKey", "sdddddde" );
+				result.put("token", token );
+				result.put("userKey", userKey );
 				return ResponseEntity.accepted().header("result", "SCUESS").body(result);
 			}
+			// set error message
 			result = responseMsg.errResponse("Email or password not found.");
 			return ResponseEntity.accepted().header("result", "FAIL").body(result);
 		} catch (Exception e) {
@@ -95,6 +136,12 @@ public class UserController {
 		}
 	}
 
+	/**
+     * Method for create a token, delegating the Jwts in the utility class 
+	 * that includes information about its expiration and a Spring GrantedAuthority object. 
+     * @param username 	word to generate to token
+     * @return token 
+     */
     private String getJWTToken(String username) {
 		String secretKey = "mySecretKey";
 		List<GrantedAuthority> grantedAuthorities = AuthorityUtils

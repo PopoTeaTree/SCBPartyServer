@@ -1,3 +1,13 @@
+/**
+ *  PartyCount.java
+ *
+ *  Represents Party detail
+ *
+ *  Created by
+ *  Thitiporn Sukpartcharoen 
+ *
+ *  6 Jan 2022
+ */
 package com.example.SCBpartyServer.model;
 
 import javax.persistence.Entity;
@@ -9,15 +19,24 @@ import javax.persistence.Id;
 public class PartyCount {
     @Id @GeneratedValue(strategy=GenerationType.IDENTITY)
     private Integer id;
+	/** Party Key */
     private String key;
+	/** Party Name */
 	private String partyName;
+	/** Maximum of member people */
 	private Integer maxAmount;
+	/** Amount of member */
     private Integer memberAmount;
 
     public PartyCount(){
 
     }
-
+	/**
+     * Constructor sets the party detail.
+     * @param  key   		party key
+     * @param  maxAmount    Maximum of party member 
+	 * @param  maxAmount    Amount of party member 
+     */
     public PartyCount(String key, String partyName, Integer maxAmount, Integer memberAmount){
         this.key = key;
         this.partyName = partyName;

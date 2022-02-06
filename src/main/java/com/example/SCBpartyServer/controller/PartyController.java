@@ -1,3 +1,13 @@
+/**
+ *  PartyController.java
+ *
+ *  Manage API service of party
+ *
+ *  Created by
+ *  Thitiporn Sukpartcharoen 
+ *
+ *  6 Jan 2022
+ */
 package com.example.SCBpartyServer.controller;
 
 import java.util.HashMap;
@@ -21,26 +31,21 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 public class PartyController {
 
+    /** response message */
     private ResponseMsg responseMsg = new ResponseMsg();
     
+    /** PartyCount repository */
     @Autowired
 	private PartyCountRepository partyCountRespository;
 
+    /** Party repository */
     @Autowired
 	private PartyRepository partyRepository;
 
-    @CrossOrigin
-    @RequestMapping(value = "/delete/party", method=RequestMethod.DELETE)
-    public String deleteAllParty(){
-		try {
-			partyRepository.deleteAll();
-			return "SUCCESS";
-		} catch (Exception e) {
-			System.out.println(e);
-			return "FAIL";
-		}
-	}
-
+    /**
+     * Getting all party with detail
+     * @return Party list 
+     */
     @CrossOrigin
     @RequestMapping("/partylist")
     public ResponseEntity<?> getPartyList() { 
@@ -56,6 +61,12 @@ public class PartyController {
         }
     }
 
+    /**
+     * Create a party by setting name and maximun memebr.
+     * @param name      party name
+	 * @param amount    maximum member
+     * @return result response 
+     */
     @CrossOrigin
 	@RequestMapping(value = "/create", method=RequestMethod.POST)
     public ResponseEntity<?> createParty(@RequestParam("partyName") String name, @RequestParam("amount") Integer amount){
@@ -63,6 +74,7 @@ public class PartyController {
         try {
             String uniqueID = UUID.randomUUID().toString();
             PartyCount party = new PartyCount(uniqueID, name, amount,0);
+            // save party detail 
             partyCountRespository.save(party);
             result = responseMsg.successResponse();
 			return ResponseEntity.accepted().header("result", "SUCCESS").body(result);
@@ -73,26 +85,37 @@ public class PartyController {
         }
 	}
 
+    /**
+     * Join party and update party detail.
+     * @param partyKey  party key
+     * @param userKey   user key	
+     * @return result response 
+     */
     @CrossOrigin
 	@RequestMapping(value = "/join", method=RequestMethod.POST)
     public ResponseEntity<?> joinParty(@RequestParam("partyKey") String partyKey, @RequestParam("userKey") String userKey){
         Map<String,String> result = new HashMap<>();
         try{
             List<PartyCount> partys = partyCountRespository.findPartyByKey(partyKey);
+            // check this party is in database
             if(partys.size() < 1 ){
                 result = responseMsg.errResponse("This party is not aviarable.");
 			    return ResponseEntity.accepted().header("result", "FAIL").body(result);
             }
+            // get a party
             PartyCount aParty = partys.get(0);
+            // check party member is full
             if( aParty.getMember()>= aParty.getMaxAmount() ){
                 result = responseMsg.errResponse("This party is already fulled.");
 			    return ResponseEntity.accepted().header("result", "FAIL").body(result);
             } 
+            // check this user able to join this party
             if(partyRepository.findUNAbleJoin(userKey,partyKey).size()!=0){
                 result = responseMsg.errResponse("You have already joined this party.");
 			    return ResponseEntity.accepted().header("result", "FAIL").body(result);
             }
             Party party  = new Party(partyKey,userKey);
+            // update party detail which user joined
             partyRepository.save(party);
             partyCountRespository.updateMember(partyKey);
             result = responseMsg.successResponse();

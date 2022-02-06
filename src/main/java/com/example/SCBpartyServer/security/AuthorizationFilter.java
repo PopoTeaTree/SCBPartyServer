@@ -1,3 +1,11 @@
+/**
+ *  AuthenorizationFilter.java
+ *
+ *  The authorization class which is capable of intercepting invocations to protected 
+ *  resources to recover the token and determine if the client has permissions or not.
+ *  It implements the JWTAuthorizationFilter
+ *
+ */
 package com.example.SCBpartyServer.security;
 
 import java.io.IOException;

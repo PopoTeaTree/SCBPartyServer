@@ -1,20 +1,25 @@
+/**
+ *  ScBpartyServerApplication.java
+ *
+ *  Main class to control server 
+ *
+ *  Created by
+ *  Thitiporn Sukpartcharoen 
+ *
+ *  6 Jan 2022
+ */
 package com.example.SCBpartyServer;
 
 import com.example.SCBpartyServer.security.AuthorizationFilter;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.context.annotation.Profile;
 import org.springframework.http.HttpMethod;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
-
-import io.jsonwebtoken.lang.Arrays;
-
 
 @SpringBootApplication
 public class ScBpartyServerApplication {
@@ -23,6 +28,10 @@ public class ScBpartyServerApplication {
 		SpringApplication.run(ScBpartyServerApplication.class, args);
 	}
 
+	/**
+     * This class is sercurity configuration that manage request with Authorization
+	 * and CRUD api.
+     */
 	@EnableWebSecurity
 	@Configuration
 	class WebSecurityConfig extends WebSecurityConfigurerAdapter {
