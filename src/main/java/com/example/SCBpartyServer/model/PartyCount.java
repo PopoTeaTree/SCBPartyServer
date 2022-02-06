@@ -1,7 +1,7 @@
 /**
  *  PartyCount.java
  *
- *  Represents Party detail
+ *  Represents Party detail which record who join this party.
  *
  *  Created by
  *  Thitiporn Sukpartcharoen 
