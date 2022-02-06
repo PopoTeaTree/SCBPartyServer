@@ -6,6 +6,8 @@ generate Authentication token, and response.
 - Spring boot
 - Java 11
 - Maven 3.8.4
+## Configuration
+- Port `http://localhost:8080`
 ## Overview
 ### User
 - Registeration
