@@ -1,4 +1,3 @@
-com/example/SCBpartyServer/security/CorsFilter.class
 com/example/SCBpartyServer/model/Party.class
 com/example/SCBpartyServer/repository/PartyCountRepository.class
 com/example/SCBpartyServer/controller/PartyController.class

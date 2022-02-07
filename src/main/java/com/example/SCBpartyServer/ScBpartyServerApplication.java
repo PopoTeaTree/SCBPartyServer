@@ -47,6 +47,7 @@ public class ScBpartyServerApplication {
 				.antMatchers(HttpMethod.POST, "/register").permitAll()
 				.antMatchers(HttpMethod.POST, "/register/*").permitAll()
 				.antMatchers(HttpMethod.POST, "/register/**").permitAll()
+				.antMatchers(HttpMethod.GET, "/users").permitAll()
 				.antMatchers(HttpMethod.DELETE, "/delete/users").permitAll()
 				.antMatchers(HttpMethod.DELETE, "/delete/party").permitAll()
 				.anyRequest().authenticated();

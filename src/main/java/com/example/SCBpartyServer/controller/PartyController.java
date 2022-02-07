@@ -108,8 +108,9 @@ public class PartyController {
             if( aParty.getMember()>= aParty.getMaxAmount() ){
                 result = responseMsg.errResponse("This party is already fulled.");
 			    return ResponseEntity.accepted().header("result", "FAIL").body(result);
-            } 
+            }
             // check this user able to join this party
+            System.out.println(partyRepository.findUNAbleJoin(userKey,partyKey));
             if(partyRepository.findUNAbleJoin(userKey,partyKey).size()!=0){
                 result = responseMsg.errResponse("You have already joined this party.");
 			    return ResponseEntity.accepted().header("result", "FAIL").body(result);

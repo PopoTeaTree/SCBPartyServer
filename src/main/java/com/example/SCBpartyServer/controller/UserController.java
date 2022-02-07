@@ -88,7 +88,9 @@ public class UserController {
 				return ResponseEntity.accepted().header("result", "FAIL").body(result);	
 			} 
 			// Save a user in database
-			userRepository.save(new User(username,pwd,uniqueID));
+			User user = new User(username,pwd,uniqueID);
+			System.out.println(user);
+			userRepository.save(user);
 			result = responseMsg.successResponse();
 			return ResponseEntity.accepted().header("result", "SUCCESS").body(result);
 		} catch (Exception e) {
@@ -109,14 +111,11 @@ public class UserController {
 	public ResponseEntity<?> login(@RequestParam("username") String username, @RequestParam("password") String pwd){
 		Map<String,String> result = new HashMap<>();
 		try {
-			// Generate id for generate token
-			String idForGenToken = UUID.randomUUID().toString();
 			// Generate token 
-			String token = getJWTToken(idForGenToken);
+			String token = getJWTToken(username);
 			// Find the user is in database
 			List<User> users = userRepository.findUserByUserPwd(username,pwd);
 			if(users.size() == 1){
-
 				String userKey = users.get(0).getKey();
 				// set token authtication
 				userRepository.setToken(userKey,token);
