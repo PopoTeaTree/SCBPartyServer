@@ -56,7 +56,7 @@ public class UserController {
      * Delete all user  
      * @return response  
      */
-	@CrossOrigin
+	// @CrossOrigin(origins = "http://localhost:3000")
 	@RequestMapping(value = "/delete/users", method=RequestMethod.DELETE)
     public String deleteAllUser(){
 		try {
@@ -75,7 +75,7 @@ public class UserController {
 	 * @param password	
      * @return result response 
      */
-	@CrossOrigin
+	// @CrossOrigin(origins = "http://localhost:3000")
     @RequestMapping(value = "/register", method=RequestMethod.POST)
     public ResponseEntity<?> addUser(@RequestParam("username") String username, @RequestParam("password") String pwd){
 		Map<String,String> result = new HashMap<>();
@@ -106,7 +106,7 @@ public class UserController {
 	 * @param password	
      * @return result response with token 
      */
-	@CrossOrigin
+	// @CrossOrigin(origins = "http://localhost:3000")
     @RequestMapping(value = "/login", method=RequestMethod.POST)
 	public ResponseEntity<?> login(@RequestParam("username") String username, @RequestParam("password") String pwd){
 		Map<String,String> result = new HashMap<>();

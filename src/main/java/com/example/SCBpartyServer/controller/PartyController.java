@@ -46,7 +46,7 @@ public class PartyController {
      * Getting all party with detail
      * @return Party list 
      */
-    @CrossOrigin
+    // @CrossOrigin(origins = "http://localhost:3000")
     @RequestMapping("/partylist")
     public ResponseEntity<?> getPartyList() { 
         try {
@@ -67,7 +67,7 @@ public class PartyController {
 	 * @param amount    maximum member
      * @return result response 
      */
-    @CrossOrigin
+    // @CrossOrigin(origins = "http://localhost:3000")
 	@RequestMapping(value = "/create", method=RequestMethod.POST)
     public ResponseEntity<?> createParty(@RequestParam("partyName") String name, @RequestParam("amount") Integer amount){
         Map<String,String> result = new HashMap<>();

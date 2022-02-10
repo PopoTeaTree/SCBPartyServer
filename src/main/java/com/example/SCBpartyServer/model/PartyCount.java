@@ -35,7 +35,7 @@ public class PartyCount {
      * Constructor sets the party detail.
      * @param  key   		party key
      * @param  maxAmount    Maximum of party member 
-	 * @param  maxAmount    Amount of party member 
+	 * @param  memberAmount    Amount of party member 
      */
     public PartyCount(String key, String partyName, Integer maxAmount, Integer memberAmount){
         this.key = key;

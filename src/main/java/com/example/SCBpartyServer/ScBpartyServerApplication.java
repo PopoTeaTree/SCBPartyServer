@@ -10,6 +10,8 @@
  */
 package com.example.SCBpartyServer;
 
+import java.util.List;
+
 import com.example.SCBpartyServer.security.AuthorizationFilter;
 
 import org.springframework.boot.SpringApplication;
@@ -20,6 +22,7 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+import org.springframework.web.cors.CorsConfiguration;
 
 @SpringBootApplication
 public class ScBpartyServerApplication {
@@ -38,7 +41,15 @@ public class ScBpartyServerApplication {
 
 		@Override
 		protected void configure(HttpSecurity http) throws Exception {
-			http.csrf().disable()
+			http
+				.cors().configurationSource(request -> {
+				CorsConfiguration cors = new CorsConfiguration();
+				cors.setAllowedOrigins(List.of("http://localhost:3000"));
+				cors.setAllowedMethods(List.of("GET","POST", "DELETE"));
+				cors.setAllowedHeaders(List.of("*"));
+				return cors;
+			  	})
+			  	.and().csrf().disable()
 				.addFilterAfter(new AuthorizationFilter(), UsernamePasswordAuthenticationFilter.class)
 				.authorizeRequests()
 				.antMatchers(HttpMethod.POST, "/login").permitAll()
